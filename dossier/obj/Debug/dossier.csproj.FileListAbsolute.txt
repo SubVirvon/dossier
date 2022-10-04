@@ -1,0 +1,8 @@
+C:\Users\Danii\source\repos\dossier\dossier\bin\Debug\dossier.exe.config
+C:\Users\Danii\source\repos\dossier\dossier\bin\Debug\dossier.exe
+C:\Users\Danii\source\repos\dossier\dossier\bin\Debug\dossier.pdb
+C:\Users\Danii\source\repos\dossier\dossier\obj\Debug\dossier.csproj.AssemblyReference.cache
+C:\Users\Danii\source\repos\dossier\dossier\obj\Debug\dossier.csproj.SuggestedBindingRedirects.cache
+C:\Users\Danii\source\repos\dossier\dossier\obj\Debug\dossier.csproj.CoreCompileInputs.cache
+C:\Users\Danii\source\repos\dossier\dossier\obj\Debug\dossier.exe
+C:\Users\Danii\source\repos\dossier\dossier\obj\Debug\dossier.pdb
