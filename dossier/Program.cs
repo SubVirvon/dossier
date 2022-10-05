@@ -69,38 +69,8 @@ namespace dossier
                         Console.CursorVisible = false;
                         break;
                     case CommandSearchDossier:
-                        string surname;
-                        int searchIndex = 0;
-                        bool isFind = false;
-
                         Console.Write("Введите фамилию: ");
-                        surname = Console.ReadLine();
-
-                        for(int i = 0; i < fullName.Length; i++)
-                        {
-                            string[] tempArray = fullName[i].Split(' ');
-
-                            foreach(var word in tempArray)
-                            {
-                                if(surname == word)
-                                {
-                                    searchIndex = i;
-                                    isFind = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if(isFind)
-                        {
-                            WriteDossierElement(searchIndex, fullName, job);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Досье не найдено");
-                        }
-
-                        Console.CursorVisible = false;
+                        SearchDossier(Console.ReadLine(), fullName, job);
                         break;
                     case CommandExit:
                         isExit = true;
@@ -160,6 +130,35 @@ namespace dossier
         static void WriteDossierElement(int index, string[] fullName, string[] job)
         {
             Console.Write($"{index + 1}.{fullName[index]} - {job[index]}. ");
+        }
+
+        static void SearchDossier(string surname, string[] fullName, string[] job)
+        {
+            int searchIndex = 0;
+            bool isFind = false;
+
+            for (int i = 0; i < fullName.Length; i++)
+            {
+                string[] tempArray = fullName[i].Split(' ');
+
+                if (surname == tempArray[0])
+                {
+                    searchIndex = i;
+                    isFind = true;
+                    break;
+                }
+            }
+
+            if (isFind)
+            {
+                WriteDossierElement(searchIndex, fullName, job);
+            }
+            else
+            {
+                Console.WriteLine("Досье не найдено");
+            }
+
+            Console.CursorVisible = false;
         }
     }
 }
