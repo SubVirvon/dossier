@@ -27,50 +27,16 @@ namespace dossier
                 switch (Console.ReadLine())
                 {
                     case CommandAddDossier:
-                        Console.Write("Введите ФИО: ");
-                        fullName = AddElement(fullName, Console.ReadLine());
-                        Console.Write("Введите должность: ");
-                        job = AddElement(job, Console.ReadLine());
-                        Console.CursorVisible = false;
+                        AddDossier(ref fullName, ref job);
                         break;
                     case CommandWriteAllDossiers:
-                        Console.Write("Досье: ");
-
-                        for (int i = 0; i < fullName.Length; i++)
-                        {
-                            WriteDossierElement(i, fullName, job);
-                        }
-
-                        Console.CursorVisible = false;
+                        WriteAllDossiers(fullName, job);
                         break;
                     case CommandDeleteDossier:
-                        const string CommandExitDelete = "exit";
-                        string command;
-                        int deleteIndex;
-
-                        Console.Write($"Какой номер досье вы хотите удалить (отмена - {CommandExitDelete}): ");
-                        command = Console.ReadLine();
-
-                        if (command != CommandExitDelete)
-                        {
-                            deleteIndex = Convert.ToInt32(command);
-
-                            if(deleteIndex <= fullName.Length && deleteIndex > 0)
-                            {
-                                fullName = DeleteElement(fullName, deleteIndex);
-                                job = DeleteElement(job, deleteIndex);
-                            }
-                            else
-                            {
-                                Console.Write("Недопустимое значение");
-                            }
-                        }
-
-                        Console.CursorVisible = false;
+                        DeleteDossier(ref fullName, ref job);
                         break;
-                    case CommandSearchDossier:
-                        Console.Write("Введите фамилию: ");
-                        SearchDossier(Console.ReadLine(), fullName, job);
+                    case CommandSearchDossier: 
+                        SearchDossier(fullName, job);
                         break;
                     case CommandExit:
                         isExit = true;
@@ -91,11 +57,32 @@ namespace dossier
             Console.ReadLine();
         }
 
-        static string[] AddElement(string[] array, string fullName)
+        static void AddDossier(ref string[] fullName, ref string[] job)
+        {
+            Console.Write("Введите ФИО: ");
+            fullName = AddElement(fullName, Console.ReadLine());
+            Console.Write("Введите должность: ");
+            job = AddElement(job, Console.ReadLine());
+            Console.CursorVisible = false;
+        }
+
+        static void WriteAllDossiers(string[] fullName, string[] job)
+        {
+            Console.Write("Досье: ");
+
+            for (int i = 0; i < fullName.Length; i++)
+            {
+                WriteDossierElement(i, fullName, job);
+            }
+
+            Console.CursorVisible = false;
+        }
+
+        static string[] AddElement(string[] array, string element)
         {
             string[] tempArray = new string[array.Length + 1];
 
-            tempArray[tempArray.Length - 1] = fullName;
+            tempArray[tempArray.Length - 1] = element;
 
             for(int i = 0; i < array.Length; i++)
             {
@@ -104,6 +91,33 @@ namespace dossier
 
             array = tempArray;
             return array;
+        }
+
+        static void DeleteDossier(ref string[] fullName, ref string[] job)
+        {
+            const string CommandExitDelete = "exit";
+            string command;
+            int deleteIndex;
+
+            Console.Write($"Какой номер досье вы хотите удалить (отмена - {CommandExitDelete}): ");
+            command = Console.ReadLine();
+
+            if (command != CommandExitDelete)
+            {
+                deleteIndex = Convert.ToInt32(command);
+
+                if (deleteIndex <= fullName.Length && deleteIndex > 0)
+                {
+                    fullName = DeleteElement(fullName, deleteIndex);
+                    job = DeleteElement(job, deleteIndex);
+                }
+                else
+                {
+                    Console.Write("Недопустимое значение");
+                }
+            }
+
+            Console.CursorVisible = false;
         }
 
         static string[] DeleteElement(string[] array, int index)
@@ -132,10 +146,14 @@ namespace dossier
             Console.Write($"{index + 1}.{fullName[index]} - {job[index]}. ");
         }
 
-        static void SearchDossier(string surname, string[] fullName, string[] job)
+        static void SearchDossier(string[] fullName, string[] job)
         {
             int searchIndex = 0;
             bool isFind = false;
+            string surname;
+
+            Console.Write("Введите фамилию: ");
+            surname = Console.ReadLine();
 
             for (int i = 0; i < fullName.Length; i++)
             {
